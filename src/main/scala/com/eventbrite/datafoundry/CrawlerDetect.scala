@@ -2,7 +2,6 @@ package com.eventbrite.datafoundry
 
 import java.io.InputStream
 
-import scala.collection.mutable.ListBuffer
 import scala.util.matching.Regex
 import scala.io.Source.fromInputStream
 
@@ -18,9 +17,7 @@ class CrawlerDetect {
 
   def loadPatterns(file: String): List[Regex] = {
     val lines = fromInputStream(getFile(file)).getLines.toList
-    val lb: ListBuffer[Regex] = new ListBuffer()
-    lines.foreach(l => lb += regexIgnoreCase(l).r)
-    lb.toList
+    lines.map(l => regexIgnoreCase(l).r)
   }
 
   def regexIgnoreCase(regex: String): String = "(?i)" + regex
