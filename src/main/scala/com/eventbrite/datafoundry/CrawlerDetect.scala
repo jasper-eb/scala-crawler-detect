@@ -32,8 +32,4 @@ class CrawlerDetect {
     }
     resultList.max
   }
-
-  private def checkPath(path: String): String = {
-    if(path.last.toString == "/") path else path + "/"
-  }
 }
