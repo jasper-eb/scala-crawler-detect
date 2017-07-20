@@ -24,9 +24,7 @@ class CrawlerDetect {
 
   def isCrawler(userAgent: String): Boolean = {
     val cleanAgent = exclusionRegex.replaceAllIn(userAgent, "").stripMargin
-    val resultList = for(pattern <- crawlerList) yield {
-      pattern.findFirstIn(cleanAgent).isDefined
-    }
+    val resultList = crawlerList.map(crawler => crawler.findFirstIn(cleanAgent).isDefined)
     resultList.max
   }
 }
