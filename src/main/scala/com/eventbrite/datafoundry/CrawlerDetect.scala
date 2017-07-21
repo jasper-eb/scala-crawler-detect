@@ -5,7 +5,7 @@ import java.io.InputStream
 import scala.util.matching.Regex
 import scala.io.Source.fromInputStream
 
-class CrawlerDetect {
+class CrawlerDetect extends Serializable {
   private val exclusionList = loadPatterns("/exclusions_regex_list.txt")
   private val crawlerList = loadPatterns("/crawler_regex_list.txt")
   private val exclusionRegex = exclusionList.mkString("|").r
@@ -23,8 +23,11 @@ class CrawlerDetect {
   def regexIgnoreCase(regex: String): String = "(?i)" + regex
 
   def isCrawler(userAgent: String): Boolean = {
-    val cleanAgent = exclusionRegex.replaceAllIn(userAgent, "").stripMargin
-    val resultList = crawlerList.map(crawler => crawler.findFirstIn(cleanAgent).isDefined)
-    resultList.max
+    userAgent match {
+      case null => false
+      case _ => val cleanAgent = exclusionRegex.replaceAllIn (userAgent, "").stripMargin
+        val resultList = crawlerList.map (crawler => crawler.findFirstIn (cleanAgent).isDefined)
+        resultList.max
+    }
   }
 }
