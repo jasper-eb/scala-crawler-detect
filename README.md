@@ -24,7 +24,7 @@ Using the `isCrawler` method will return a `Boolean`. Before checking this the u
 ```Scala
 import com.eventbrite.datafoundry.CrawlerDetect
 
-val cd = new CrawlerDectect
+val cd = new CrawlerDetect
 val userAgent: String = ???
 cd.isCrawler(userAgent)
 ```
