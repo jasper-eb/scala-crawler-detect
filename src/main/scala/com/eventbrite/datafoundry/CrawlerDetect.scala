@@ -16,7 +16,9 @@ class CrawlerDetect extends Serializable {
   def getFile(file: String): InputStream = getClass.getResourceAsStream(file)
 
   def loadPatterns(file: String): List[Regex] = {
-    val lines = fromInputStream(getFile(file)).getLines.toList
+    val stream = fromInputStream(getFile(file))
+    val lines = stream.getLines.toList
+    stream.close()
     lines.map(l => regexIgnoreCase(l).r)
   }
 
@@ -26,8 +28,7 @@ class CrawlerDetect extends Serializable {
     userAgent match {
       case null => false
       case _ => val cleanAgent = exclusionRegex.replaceAllIn (userAgent, "").stripMargin
-        val resultList = crawlerList.map (crawler => crawler.findFirstIn (cleanAgent).isDefined)
-        resultList.max
+        crawlerList.exists(crawler => crawler.findFirstIn(cleanAgent).isDefined)
     }
   }
 }
