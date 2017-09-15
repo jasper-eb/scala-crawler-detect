@@ -1,3 +1,5 @@
+organization := "com.eventbrite"
+
 name := "scala-crawler-detect"
 
 version := "1.0"

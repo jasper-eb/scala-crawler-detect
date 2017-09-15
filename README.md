@@ -9,12 +9,22 @@ Run `sbt test`.
 ## Compiling
 Simply run `sbt package`.
 
+## Add with SBT
+```Scala
+sbt publishLocal
+```
+
+In `build.sbt`
+```Scala
+libraryDependencies += "com.eventbrite" %% "scala-crawler-detect" % "1.0"
+```
+
 ## Usage
 Using the `isCrawler` method will return a `Boolean`. Before checking this the user agent is cleaned up to prevent false positives.
 ```Scala
 import com.eventbrite.datafoundry.CrawlerDetect
 
-val cd = new CrawlerDectect
+val cd = new CrawlerDetect
 val userAgent: String = ???
 cd.isCrawler(userAgent)
 ```
